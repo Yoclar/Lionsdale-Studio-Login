@@ -1,0 +1,69 @@
+CREATE DATABASE webshop
+DEFAULT CHARACTER SET utf8
+COLLATE utf8_hungarian_ci;
+
+ALTER TABLE szamlatetel ADD FOREIGN KEY (szamlafejid) REFERENCES szamlafej(id);
+ALTER TABLE szamlatetel ADD FOREIGN KEY (termekid) REFERENCES termekek(id);
+ALTER tABLe szamlafej ADD FOREIGN KEY (vevoid) REFERENCES vevok(id);
+
+
+SELECT megnevezes, ar FROM termekek ORDER BY `termekek`.`ar` DESC ;
+
+UPDATE `termekek` SET `ar`= `ar` * 0.95  WHERE ar > 5000;
+
+SELECT SUM(ar) FROM termekek
+INNER JOIN szamlatetel ON termekek.id = szamlatetel.termekid
+INNER JOIN szamlafej ON szamlafej.id = szamlatetel.szamlafejid
+WHERE szamlafej.kelt >= "2018.01.01" AND szamlafej.kelt <= "2018.01.15" GROUP BY termekek.id; 
+
+
+SELECT vevok.nev,vevok.telepules 
+FROM vevok 
+WHERE vevok.id NOT IN(SELECT DISTINCT szamlafej.vevoid FROM szamlafej)
+ORDER BY vevok.nev;
+
+
+SELECT termekek.megnevezes,SUM(szamlatetel.mennyiseg*szamlatetel.bruttoegysegar) AS bevétel
+FROM termekek INNER JOIN szamlatetel ON termekek.id=szamlatetel.termekid
+GROUP BY termekek.megnevezes
+ORDER BY bevétel DESC
+LIMIT 3;
+
+
+monthypython
+
+CREATE DATABASE monthypython
+DEFAULT CHARACTER SET utf8
+COLLATE utf8_hungarian_ci;
+
+3.as
+SELECT epizodok.nev FROM epizodok WHERE epizodok.sorozat="1/5"
+4.es
+SELECT COUNT(epizodok.nev) AS "epizódok száma" FROM epizodok
+5.ös
+SELECT DISTINCT forgatokonyv.szinesz 
+FROM forgatokonyv
+WHERE forgatokonyv.szinesz IS NOT NULL
+ORDER BY forgatokonyv.szinesz
+6.
+SELECT forgatokonyv.reszletek 
+FROM forgatokonyv
+WHERE forgatokonyv.szinesz="John Cleese" AND forgatokonyv.resz="Italian lesson"
+7.
+SELECT forgatokonyv.szinesz AS színész,COUNT(forgatokonyv.id) AS "bejegyzések száma" 
+FROM forgatokonyv
+WHERE forgatokonyv.szinesz IS NOT NULL
+GROUP BY forgatokonyv.szinesz
+ORDER BY COUNT(forgatokonyv.id) DESC
+LIMIT 1
+
+
+
+
+
+
+
+
+
+
+
