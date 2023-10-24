@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="../assets/fontawesome/css/all.css">
     <script src="../assets/fontawesome/js/all.js"></script>
     <script src=" ../assets/scripts/parsley.js"></script>
+
+    <!-- JQuery table -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 </head>
 
 <body>

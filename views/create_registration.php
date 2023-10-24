@@ -10,7 +10,7 @@ $result = mysqli_query($connection, $sql_query);
 /*States query*/
 
 $sql_query2 = "SELECT * FROM `states` WHERE country_code = 'HU'";
-$result2 = mysqli_query($connection, $sql_query2)
+$result2 = mysqli_query($connection, $sql_query2);
 
 
 

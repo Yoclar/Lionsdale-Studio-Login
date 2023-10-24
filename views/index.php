@@ -98,18 +98,21 @@ while ($row = mysqli_fetch_assoc($result3)) {
                 echo'  <tr>
                 <td scope="row">Item</td>
                 <td>'.$product['name'].'</td>
-                <td>'.$product['qty'].'</td>
+                <td><input type="number" value="'.$product['qty'].'" class="form-control" name="carQty" onchange="changeHiddenQty(this,'.$key.')"></td>
                 <td>'.$product['qty'] * $product['price'].'</td>
                 <td>
                   <div class="row">
                     <div class="col-2">
-                      <form action="#" method="POST">
+                      <form action="../controllers/updateCart.php" method="POST">
                         <button class="actionButton"><i class="fa-solid fa-arrows-rotate me-3"></i></button>
+                        <input type="hidden" name="productId" id="productId" value="'. $key .'">
+                        <input type="hidden" name="hiddenqty" id="hiddenqty_'.$key.'" value="'. $product['qty'] .'">
                       </form>
                     </div>
                     <div class="col-2">
-                      <form action="#" method="POST">
+                      <form action="../controllers/deleteFromCart.php" method="POST">
                         <button class="actionButton"><i class="fa-solid fa-trash"></i></td></button>
+                        <input type="hidden" name="productId" id="productId" value="'. $key .'">
                       </form>
                     </div>
                     
@@ -120,9 +123,16 @@ while ($row = mysqli_fetch_assoc($result3)) {
             }
             
             ?>
-          
-            <td colspan="4">Összesen: </td>
-            <td><?php echo "$".$total . " - ($" . $total*0.73 . " + VAT)" ?></td>
+            <tr>
+              <td colspan="4">Összesen: </td>
+              <td><?php echo "$".$total . " - ($" . $total*0.73 . " + VAT)" ?></td>
+            </tr>
+            <tr>
+              <td colspan="4"></td>
+              <td>
+                <a href="orderSummary.php" class="btn btn-outline-info">Rendelés véglegesítése</a>
+              </td>
+            </tr>
           </tbody>
           
       </table>
@@ -130,6 +140,15 @@ while ($row = mysqli_fetch_assoc($result3)) {
     
   </div>
 </div>
+<script>
+  function changeHiddenQty(input, key)
+  {
+    let hidenqty = document.getElementById("hiddenqty_"+key);
+    hiddenqty.value = input.value;
+
+  }
+</script>
+
 
 </div>
 
